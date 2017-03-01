@@ -1,0 +1,41 @@
+######################################################################
+# Arquivo criado por Bruno Peres e adaptado para a disciplina de 
+# AEDSIII 2013/2 por Lucas Monteiro
+######################################################################
+
+# Lista dos objetos (arquivos .c, troca-se a extensão para .o) necessários para o programa final
+OBJS1 = main_h.o io.o grafo_heuristica.o
+OBJS2 = main_e.o io.o grafo_otimo.o
+
+# Nome do executável que será gerado
+MAIN1 = tp2h
+MAIN2 = tp2e
+
+# Especifica o compilador
+CC = gcc
+
+# Especifica as opções do compilador, habilita aviso sobre erros
+CFLAGS = -Wall -pg -g3
+
+# Comando terminal para limpar sem confirmação
+RM = rm -f
+
+# Compilação do programa e passos das ligações de dependências
+all: $(MAIN1) $(MAIN2)
+
+$(MAIN1): $(OBJS1)
+	@echo ""
+	@echo " --- COMPILANDO PROGRAMA ---"
+	@$(CC) $(CFLAGS) $(OBJS1) -lm -o $(MAIN1)
+	@echo ""
+
+$(MAIN2): $(OBJS2)
+	@echo ""
+	@echo " --- COMPILANDO PROGRAMA ---"
+	@$(CC) $(CFLAGS) $(OBJS2) -lm -o $(MAIN2)
+	@echo ""
+
+%.o: %.c %.h
+	@echo ""
+	@echo " --- COMPILANDO OBJETO \"$@\""
+	@$(CC) $(CFLAGS) $< -c 
